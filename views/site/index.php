@@ -76,7 +76,9 @@ use app\components\MenuWidget;
 				<div class="left-sidebar">
 					<h2>Category</h2>
 
-					<?= MenuWidget::widget(['tpl' => 'menu']); ?>
+					<ul class="catalog">
+						<?= MenuWidget::widget(['tpl' => 'menu']); ?>
+					</ul>
 
 					<div class="panel-group category-products" id="accordian">
 						<!--category-productsr-->
