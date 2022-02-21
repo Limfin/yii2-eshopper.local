@@ -49,7 +49,9 @@ $config = [
 		'urlManager' => [
 			'enablePrettyUrl' => true,
 			'showScriptName' => false,
-			'rules' => [],
+			'rules' => [
+				'category/<id:\d+>' => 'category/view'
+			],
 		],
 
 	],
