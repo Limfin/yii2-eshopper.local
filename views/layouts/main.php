@@ -10,6 +10,8 @@ use yii\bootstrap4\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 
+use yii\helpers\Url;
+
 //первый способ подключение дополнительных скриптов по условию (второй способ ниже, с помощью registerJsFile())
 // use app\assets\ltAppAsset;
 
@@ -31,7 +33,6 @@ AppAsset::register($this);
 
 	<?php $this->registerCsrfMetaTags() ?>
 	<title><?= Html::encode($this->title) ?></title>
-	<!-- <title>Home | E-Shopper</title> -->
 	<?php $this->head() ?>
 
 	<!-- второй способ подключение дополнительных скриптов по условию -->
@@ -88,7 +89,7 @@ AppAsset::register($this);
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/"><img src="/images/home/logo.png" alt="" /></a>
+							<a href="<?= Url::home(); ?>"><?= Html::img('@web/images/home/logo.png', ['alt' => 'E-shopper']) ?></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">

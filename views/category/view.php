@@ -63,7 +63,7 @@ use yii\helpers\Html;
 					<!--features_items-->
 
 					<?php if (!empty($products)) : ?>
-						<h2 class="title text-center">Features Items</h2>
+						<h2 class="title text-center"><?= $category['name']; ?></h2>
 						<?php $i = 0; ?>
 						<?php foreach ($products as $product) : ?>
 							<div class="col-sm-4">
