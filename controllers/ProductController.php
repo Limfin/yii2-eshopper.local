@@ -19,8 +19,14 @@ class ProductController extends AppController
 		$product = Product::findOne($id); //ленивая загрузка
 		// $product = Product::find()->with('category')->where(['id' => $id])-limit(1)->one(); //жадная загрузка
 
+		$hits = Product::find()->where(['hit' => '1'])->limit(6)->all();
+
+		//установка метатегов, вызывается метод setMeta() из общего контроллера AppController.php
+		$this->setMeta('E_SHOPPER | ' . $product->name, $product->keywords, $product->description);
+
 		return $this->render('view', [
 			'product' => $product,
+			'hits'    => $hits,
 		]);
 	}
 }
