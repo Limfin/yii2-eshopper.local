@@ -14,7 +14,8 @@ class ProductController extends AppController
 	public function actionView($id)
 	{
 
-		$id = Yii::$app->request->get('id');
+		//переменная $id уже передается через параметр (actionView($id)), поэтому получать ее еще раз через get запрос нет смысла
+		//$id = Yii::$app->request->get('id');
 
 		$product = Product::findOne($id); //ленивая загрузка
 		// $product = Product::find()->with('category')->where(['id' => $id])-limit(1)->one(); //жадная загрузка

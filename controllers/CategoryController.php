@@ -33,7 +33,8 @@ class CategoryController extends AppController
 	public function actionView($id)
 	{
 
-		$id = Yii::$app->request->get('id');
+		//переменная $id уже передается через параметр (actionView($id)), поэтому получать ее еще раз через get запрос нет смысла
+		// $id = Yii::$app->request->get('id');
 
 		$category = Category::findOne($id);
 
@@ -64,6 +65,35 @@ class CategoryController extends AppController
 			'products' => $products,
 			'pages'    => $pages,
 			'category' => $category,
+		]);
+	}
+
+	public function actionSearch()
+	{
+
+		$q = trim(Yii::$app->request->get('q'));
+
+		//установка метатегов, вызывается метод setMeta() из общего контроллера AppController.php
+		$this->setMeta('E_SHOPPER | Поиск: ' . $q);
+
+		//проверка что введеная строка не пустая
+		if (empty($q)) {
+			return $this->render('search');
+		}
+
+		$query = Product::find()->where(['like', 'name', $q]);
+		$pages = new Pagination([
+			'totalCount' => $query->count(),
+			'pageSize' => 3,
+			'forcePageParam' => false, //параметр который отвечает за вывод ЧПУ вместо get параметров на страницах пагинации(так же убирает get параметр "?page=1" с первой страницы)
+			'pageSizeParam' => false, //параметр отвечает за вывод доплнительного get параметра ("per-page") в строке браузера, чтобы отключить показ устанавливается в "false"
+		]);
+		$products = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+		return $this->render('search', [
+			'products' => $products,
+			'pages'    => $pages,
+			'q'        => $q,
 		]);
 	}
 }
