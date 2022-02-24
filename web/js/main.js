@@ -6,6 +6,31 @@ $('.catalog').dcAccordion({
 	speed: 300,
 });
 
+//добавление товара в корзину с помощью ajax
+$('.add-to-cart').on('click', function (e) {
+	e.preventDefault();
+
+	let id = $(this).data('id');
+	$.ajax({
+		url: '/cart/add',
+		data: { id: id },
+		type: 'GET',
+		success: function (res) {
+
+			if (!res) {
+				alert('Ошибка!')
+			}
+			console.log(res);
+			// showCart(res);
+		},
+		error: function () {
+			alert('Error!');
+		}
+	});
+})
+
+
+
 var RGBChange = function () {
 	$('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')')
 };
