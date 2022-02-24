@@ -26,5 +26,12 @@ class CartController extends AppController
 		$cart = new Cart();
 		//вызов метода из модели
 		$cart->addToCart($product);
+
+		//отключаем вывод layout чтобы в модальном окне не подключался header и footer
+		$this->layout = false;
+
+		return $this->render('cart-modal', [
+			'session' => $session,
+		]);
 	}
 }

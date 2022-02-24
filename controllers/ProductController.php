@@ -21,7 +21,7 @@ class ProductController extends AppController
 		// $product = Product::find()->with('category')->where(['id' => $id])-limit(1)->one(); //жадная загрузка
 
 		//если массив продукта пуст, то возвращается ответ 404
-		if (empty($category)) { // item does not exist
+		if (empty($product)) { // item does not exist
 			throw new \yii\web\HttpException(404, 'Такого товара нет');
 		}
 
