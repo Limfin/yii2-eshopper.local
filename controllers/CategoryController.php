@@ -35,6 +35,13 @@ class CategoryController extends AppController
 
 		$id = Yii::$app->request->get('id');
 
+		$category = Category::findOne($id);
+
+		//если массив категории пуст, то возвращается ответ 404
+		if (empty($category)) { // item does not exist
+			throw new \yii\web\HttpException(404, 'Такой категории нет');
+		}
+
 		// $products = Product::find()->where(['category_id' => $id])->all();
 
 		//настройка пагинации

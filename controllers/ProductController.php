@@ -19,6 +19,11 @@ class ProductController extends AppController
 		$product = Product::findOne($id); //ленивая загрузка
 		// $product = Product::find()->with('category')->where(['id' => $id])-limit(1)->one(); //жадная загрузка
 
+		//если массив продукта пуст, то возвращается ответ 404
+		if (empty($category)) { // item does not exist
+			throw new \yii\web\HttpException(404, 'Такого товара нет');
+		}
+
 		$hits = Product::find()->where(['hit' => '1'])->limit(6)->all();
 
 		//установка метатегов, вызывается метод setMeta() из общего контроллера AppController.php
