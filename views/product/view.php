@@ -108,11 +108,11 @@ use yii\helpers\Url;
 							<span>
 								<span>US $<?= $product['price'] ?></span>
 								<label>Quantity:</label>
-								<input type="text" value="1" />
-								<button type="button" class="btn btn-fefault cart">
+								<input id="qty" type="text" value="1" />
+								<a class="btn btn-fefault cart add-to-cart" data-id="<?= $product['id'] ?>">
 									<i class="fa fa-shopping-cart"></i>
 									Add to cart
-								</button>
+								</a>
 							</span>
 							<p><b>Availability:</b> In Stock</p>
 							<?php if ($product['new'] == 1) : ?>
@@ -341,7 +341,7 @@ use yii\helpers\Url;
 														<?= Html::img('@web/images/products/' . $hit['img'], ['alt' => $hit["name"]]) ?>
 														<h2>$<?= $hit['price'] ?></h2>
 														<p><a href="<?= Url::to(['product/view', 'id' => $hit['id']]); ?>"><?= $hit['name'] ?></a></p>
-														<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+														<a class="btn btn-default add-to-cart" data-id="<?= $hit['id'] ?>"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 													</div>
 												</div>
 											</div>

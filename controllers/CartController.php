@@ -14,6 +14,8 @@ class CartController extends AppController
 	{
 
 		$id = Yii::$app->request->get('id');
+		$qty = (int)Yii::$app->request->get('qty');
+		$qty = !$qty ? 1 : $qty;
 
 		$product = Product::findOne($id);
 		if (empty($product)) {
@@ -25,7 +27,7 @@ class CartController extends AppController
 		$session->open();
 		$cart = new Cart();
 		//вызов метода из модели
-		$cart->addToCart($product);
+		$cart->addToCart($product, $qty);
 
 		//отключаем вывод layout чтобы в модальном окне не подключался header и footer
 		$this->layout = false;
@@ -71,7 +73,7 @@ class CartController extends AppController
 
 	public function actionShow()
 	{
-	
+
 		$session = Yii::$app->session;
 		$session->open();
 
@@ -81,5 +83,11 @@ class CartController extends AppController
 		return $this->render('cart-modal', [
 			'session' => $session,
 		]);
+	}
+
+	public function actionView()
+	{
+
+		return $this->render('view', []);
 	}
 }
