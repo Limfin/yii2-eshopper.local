@@ -31,7 +31,9 @@ class AppAsset extends AssetBundle
 		'css/responsive.css',
 	];
 	public $js = [
-		'js/jquery.js',
+		// 'js/jquery.js',
+		'js/jquery-3.6.0.min.js',
+		'js/yii.activeForm.js',
 		'js/bootstrap.min.js',
 		'js/jquery.scrollUp.min.js',
 		'js/price-range.js',

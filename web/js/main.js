@@ -37,6 +37,7 @@ function getCart() {
 $('#cart .modal-body').on('click', '.cart_quantity_delete', function (e) {
 	e.preventDefault();
 
+	console.log(1111);
 	let id = $(this).data('id');
 
 	$.ajax({
