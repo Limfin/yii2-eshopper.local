@@ -21,7 +21,7 @@ use yii\helpers\Html;
 						<?php foreach ($session['cart'] as $id => $item) : ?>
 							<tr>
 								<td class="cart_product">
-									<a href=""><?= Html::img('@web/images/products/'.$item['img'], ['alt' => $item['name']]) ?></a>
+									<a href=""><?= Html::img('@web/images/products/'.$item['img'], ['alt' => $item['name'], 'height' => '100px']) ?></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href=""><?= $item['name'] ?></a></h4>
@@ -41,7 +41,7 @@ use yii\helpers\Html;
 									<p class="cart_total_price">$<?= $item['price'] * $item['qty'] ?></p>
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+									<a class="cart_quantity_delete" href="" data-id="<?= $id ?>"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

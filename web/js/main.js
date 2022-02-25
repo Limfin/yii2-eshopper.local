@@ -12,6 +12,50 @@ function showCart(cart) {
 	$('#cart').modal();
 }
 
+function getCart() {
+
+	$.ajax({
+		url: '/cart/show',
+		type: 'GET',
+		success: function (res) {
+
+			if (!res) {
+				alert('Ошибка!')
+			}
+			showCart(res);
+		},
+		error: function () {
+			alert('Error!');
+		}
+	});
+
+	//отключение стандартного действия ссылки (аналог способа e.preventDefault())
+	return false;
+}
+
+//удаление одного товара из корзины
+$('#cart .modal-body').on('click', '.cart_quantity_delete', function (e) {
+	e.preventDefault();
+
+	let id = $(this).data('id');
+
+	$.ajax({
+		url: '/cart/del-item',
+		data: { id: id },
+		type: 'GET',
+		success: function (res) {
+
+			if (!res) {
+				alert('Ошибка!')
+			}
+			showCart(res);
+		},
+		error: function () {
+			alert('Error!');
+		}
+	});
+})
+
 //очистка корзины
 function clearCart() {
 	$.ajax({
