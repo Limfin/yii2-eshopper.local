@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Html;
+?>
 <?php if (!empty($session['cart'])) : ?>
 	<h2>Корзина полна</h2>
 	<section id="cart_items">
@@ -18,7 +21,7 @@
 						<?php foreach ($session['cart'] as $id => $item) : ?>
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="images/cart/one.png" alt=""></a>
+									<a href=""><?= Html::img('@web/images/products/'.$item['img'], ['alt' => $item['name']]) ?></a>
 								</td>
 								<td class="cart_description">
 									<h4><a href=""><?= $item['name'] ?></a></h4>
@@ -41,15 +44,15 @@
 									<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
-							<tr>
-								<td class="cart_sum">
-									<p class="cart_sum_price">$<?= $session['cart.sum'] ?></p>
-								</td>
-								<td class="cart_total_qty">
-									<a class="cart_total_qty_delete" href=""><i class="fa fa-times"></i></a>
-								</td>
-							</tr>
 						<?php endforeach; ?>
+						<tr>
+							<td colspan="4" class="cart_sum">
+								<h4 class="cart_sum_price">Общая стоимость: </h4>
+							</td>
+							<td class="cart_total_qty">
+							<p class="cart_sum_price cart_total_price">$<?= $session['cart.sum'] ?></p>
+							</td>
+						</tr>
 
 					</tbody>
 				</table>

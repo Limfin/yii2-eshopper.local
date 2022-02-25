@@ -2445,3 +2445,16 @@ textarea {
 .contact-info .social-networks ul li a:hover {
 	color: #fe980f;
 }
+
+.modal-dialog {
+	max-width: 1250px;
+	width: auto;
+}
+.modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.close {
+	font-size: 40px;
+}
