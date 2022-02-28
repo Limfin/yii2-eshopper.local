@@ -31,6 +31,9 @@ $config = [
 		'user' => [
 			'identityClass' => 'app\models\User',
 			'enableAutoLogin' => true,
+
+			//здесь указывается контроллер куда будет перенаправлен пользователь, если неавторизован и пытается попасть в админку. по умолчанию открывается site/login
+			// 'loginUrl' => 'cart'
 		],
 		'errorHandler' => [
 			'errorAction' => 'site/error',
