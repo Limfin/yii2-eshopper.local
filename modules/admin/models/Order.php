@@ -3,6 +3,7 @@
 namespace app\modules\admin\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "order".
@@ -26,6 +27,21 @@ class Order extends \yii\db\ActiveRecord
 	public static function tableName()
 	{
 		return 'order';
+	}
+
+	//обновление поля "updated_at" (дата изменения) перед сохранением заказа в админке
+	public function beforeSave($insert)
+	{
+		if (parent::beforeSave($insert)) {
+			$this->updated_at = new Expression('NOW()');
+			return true;
+		}
+		return false;
+	}
+
+	public function getOrderItems()
+	{
+		return $this->hasMany(OrderItems::className(), ['order_id' => 'id']);
 	}
 
 	/**
