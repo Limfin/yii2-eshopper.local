@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -81,6 +82,7 @@ class CategoryController extends Controller
 
 		if ($this->request->isPost) {
 			if ($model->load($this->request->post()) && $model->save()) {
+				Yii::$app->session->setFlash('success', 'Категория создана');
 				return $this->redirect(['view', 'id' => $model->id]);
 			}
 		} else {

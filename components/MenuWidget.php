@@ -10,6 +10,7 @@ class MenuWidget extends Widget
 {
 
 	public $tpl;
+	public $model;
 	public $data; //здесь хранится массив категорий из БД
 	public $tree; //здесь хранится результат работы функции, которая из обычного массива преобразует в массив "дерево", где видно какая категория в какую вложена
 	public $menuHtml; //здесь хранится готовый Html код в зависимости от того какой шаблон выбран, которое хранится в свойстве $tpl
@@ -30,9 +31,11 @@ class MenuWidget extends Widget
 	{
 
 		//get cache
-		$menu = Yii::$app->cache->get('menu');
-		if ($menu) {
-			return $menu;
+		if ($this->tpl == 'menu.php') {
+			$menu = Yii::$app->cache->get('menu');
+			if ($menu) {
+				return $menu;
+			}
 		}
 
 		$this->data = Category::find()->indexBy('id')->asArray()->all();
@@ -44,7 +47,9 @@ class MenuWidget extends Widget
 		// exit;
 
 		//set cache
-		Yii::$app->cache->set('menu', $this->menuHtml, 60); //создание файла кеша на одну минуту
+		if ($this->tpl == 'menu.php') {
+			Yii::$app->cache->set('menu', $this->menuHtml, 60); //создание файла кеша на одну минуту
+		}
 		return $this->menuHtml;
 	}
 
@@ -65,19 +70,19 @@ class MenuWidget extends Widget
 		return $tree;
 	}
 
-	protected function getMenuHtml($tree)
+	protected function getMenuHtml($tree, $tab = '')
 	{
 
 		$str = '';
 
 		foreach ($tree as $category) {
-			$str .= $this->catToTemplate($category);
+			$str .= $this->catToTemplate($category, $tab);
 		}
 
 		return $str;
 	}
 
-	protected function catToTemplate($category)
+	protected function catToTemplate($category, $tab)
 	{
 
 		ob_start();
