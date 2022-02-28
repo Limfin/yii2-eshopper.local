@@ -105,6 +105,14 @@ class CartController extends AppController
 				$this->saveOrderItems($session['cart'], $order->id);
 				Yii::$app->session->setFlash('success', 'Ваш заказ принят');
 
+				//отправка писем о заказе на почту
+				//в методе "compose("order", ["session" => $session])" в скобках указывается название вида("order") и переданные переменные в вид(["session" => $session]). Вид лежит в папке /mail/order.php
+				Yii::$app->mailer->compose('order', ['session' => $session])
+					->setFrom(['test-smr@yandex.ru' => 'yii2-test']) //первый параметр - почта с которой происходит отправка(test-smr@yandex.ru), второй параметр - имя от кого приходит письмо(yii2-test)
+					->setTo($order->email) //почта куда отправляется письмо
+					->setSubject('Заказ') //тема письма
+					->send();
+
 				//очистка корзины
 				$session->remove('cart');
 				$session->remove('cart.qty');
@@ -126,7 +134,7 @@ class CartController extends AppController
 	protected function saveOrderItems($items, $order_id)
 	{
 
-		foreach($items as $id => $item) {
+		foreach ($items as $id => $item) {
 			$order_items = new OrderItems();
 			$order_items->order_id = $order_id;
 			$order_items->product_id = $id;
@@ -136,6 +144,5 @@ class CartController extends AppController
 			$order_items->sum_item = $item['qty'] * $item['price'];
 			$order_items->save();
 		}
-
 	}
 }
