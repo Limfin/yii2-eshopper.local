@@ -122,6 +122,7 @@ use yii\helpers\Url;
 							<?php endif; ?>
 							<p><b>Brand:</b> <a href="<?= Url::to(['category/view', 'id' => $product['category']['id']]); ?>"><?= $product['category']['name'] ?></a></p>
 							<a href=""><img src="/images/product-details/share.png" class="share img-responsive" alt="" /></a>
+							<?= $product['content'] ?>
 						</div>
 						<!--/product-information-->
 					</div>
